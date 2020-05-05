@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: liveness-httpget-pod
+  labels:
+    name: liveness-httpget-pod
+spec:
+  containers:
+  - name: liveness-httpget-pod
+    image: registry.cn-beijing.aliyuncs.com/joey2020/k8s-test:v1
+    imagePullPolicy: IfNotPresent
+    ports:
+      - name: http
+        containerPort: 80
+    livenessProbe:
+      httpGet:
+        port: http
+        path: /index.html
+      initialDelaySeconds: 1
+      periodSeconds:  3
+      timeoutSeconds: 10
