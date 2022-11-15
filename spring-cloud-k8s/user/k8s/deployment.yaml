@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user
+  namespace: test
+  labels:
+    app: user
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: user
+      labels:
+        app: user
+    spec:
+      containers:
+        - name: user
+          image: joey/test-k8s-user:0.2
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: user
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: user
+  namespace: test
+  labels:
+    app: user
+spec:
+  selector:
+    app: user
+  ports:
+    - port: 8080
+  type: NodePort

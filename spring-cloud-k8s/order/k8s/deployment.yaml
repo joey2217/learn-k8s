@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: order
+  namespace: test
+  labels:
+    app: order
+spec:
+  replicas: 1
+  template:
+    metadata:
+      name: order
+      labels:
+        app: order
+    spec:
+      containers:
+        - name: order
+          image: joey/test-k8s-order:0.2
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  selector:
+    matchLabels:
+      app: order
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order
+  namespace: test
+  labels:
+    app: order
+spec:
+  selector:
+    app: order
+  ports:
+    - port: 8080
+  type: NodePort
