@@ -4,6 +4,11 @@ sidebar_position: 1
 
 # 基础命令
 
+## 教程
+
+> https://kuboard.cn/learning/k8s-bg/component.html#master%E7%BB%84%E4%BB%B6
+
+
 ## 集群信息
 
 ```sh
@@ -125,4 +130,24 @@ kubectl scale deployments/hello-k8s --replicas=4 # 扩展副本4个
 
 ```sh
 kubectl get pods -o wide
+```
+
+## 更新应用
+
+### 设置镜像
+
+```sh
+kubectl set image deployments/nginx nginx=nginx:alpine
+```
+
+### 更新状态
+
+```sh
+kubectl rollout status deployments/nginx
+```
+
+### 退回更新 Rollback
+
+```sh
+kubectl rollout undo deployments/nginx
 ```
