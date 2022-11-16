@@ -17,7 +17,7 @@ public class OrderController {
     @GetMapping("/order")
     public String order(@RequestParam String id) {
         String user = userClient.getUser(id);
-        return "order" + id + "==user" + id;
+        return "order" + id + "==user" + user;
     }
 
 

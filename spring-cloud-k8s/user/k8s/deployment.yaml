@@ -15,8 +15,44 @@ spec:
     spec:
       containers:
         - name: user
-          image: joey/test-k8s-user:0.2
+          image: joey/test-k8s-user:0.3
           imagePullPolicy: IfNotPresent
+          env:
+            - name: MYSQL_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: test-app-config
+                  key: mysql_url
+            - name: MYSQL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: test-app-config
+                  key: mysql_port
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: test-app-config
+                  key: mysql_database
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: test-app-config
+                  key: redis_host
+            - name: REDIS_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: test-app-config
+                  key: redis_port
+            - name: MYSQL_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: test-app-secret
+                  key: mysql_username
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: test-app-secret
+                  key: mysql_password
       restartPolicy: Always
   selector:
     matchLabels:
